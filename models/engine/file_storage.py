@@ -7,6 +7,7 @@ Initilase class File Storage
 
 import json
 import models
+import os
 
 
 class FileStorage:
@@ -50,7 +51,7 @@ class FileStorage:
             with open(self.__file_path, 'r') as file:
                 new_obj = json.load(file)
                 #for key, value in new_obj.items():
-                    #self.all()[key] = models[value['__class__']](**value)
+                    
         except FileNotFoundError:
             pass
         

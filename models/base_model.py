@@ -34,9 +34,12 @@ class BaseModel:
             models.storage.new(self)
 
     def __str__(self):
-        """Return string information about base Model"""
+        """Return string representation of BaseModel class"""
         return ("[{}] ({}) {}"
                 .format(self.__class__.__name__, self.id, self.__dict__))
+    def __repr__(self):
+        """Return string represantion of BaseModel class"""
+        return
 
     def save(self):
         """update updated_at time """
