@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-from uuid import uuid4
+import uuid
 from datetime import datetime
-import models
+import models.engine.file_storage
 
 
 """
@@ -17,21 +17,21 @@ class BaseModel:
         """
         Initialise atrributes id, created-at, updated_at
         """
-        if kwargs is not None:
+        if kwargs:
             for key, value in kwargs.items():
                 if "created_at" == key:
                     self.created_at = datetime.strptime(kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f")
-                elif "updated_at" == key:
+                if "updated_at" == key:
                     self.updated_at = datetime.strptime(kwargs["updated_at"], "%Y-%m-%dT%H:%M:%S.%f")
-                elif "__class__" == key:
+                if "__class__" == key:
                     pass
                 else:
                     setattr(self, key, value)
-            else:
-                self.id = str(uuid4())
-                self.created_at = datetime.now()
-                self.updated_at = datetime.now()
-                models.storage.new(self)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            models.storage.new(self)
 
     def __str__(self):
         """Return string information about base Model"""
@@ -48,12 +48,12 @@ class BaseModel:
         create a dictionary represantion of attributes
         """
         dic = {}
-
+        
         dic["__class__"] = self.__class__.__name__
-        for key, value in self.__dict__.items():
-            if isinstance(value, (datetime)):
-                dic[key] = value.isoformat()
+        for key, Value in self.__dict__.items():
+            if isinstance(Value, (datetime)):
+                dic[key] = Value.isoformat()
             else:
-                dic[key] = value
+                dic[key] = Value
         return dic
     
