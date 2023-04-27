@@ -41,11 +41,11 @@ class BaseModel:
                     pass
                 else:
                     setattr(self, key, value)
-            else:
-                self.id = str(uuid4())
-                self.created_at = datetime.now()
-                self.updated_at = datetime.now()
-                storage.new(self)
+
+        self.id = str(uuid4())
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
+        storage.new(self)
 
     def __str__(self):
         """Return string information about base Model"""
